@@ -1,0 +1,120 @@
+import { ArticleLayout } from '../../components/article-layout/ArticleLayout';
+
+export default ArticleLayout({
+    title: "Layout for enkeltsider", 
+    date: "2021-20-21",
+})
+
+Denne siden benytter seg av et overordnet layout. Det gjør den ved å inkludere
+følgende kode:
+
+```jsx
+
+    import { ArticleLayout } from '../../components/article-layout/ArticleLayout';
+
+    export default ArticleLayout({
+        title: "This title appears in Layout", 
+        date: "2021-20-21",
+    })
+
+```
+
+## Hvordan fungerer dette?
+
+Hver enkelt MDX-komponent tillater å "wrappe seg selv" med følgende syntaks:
+
+```jsx
+    export default ({children}) => <div classname="wrapper">{children}</div>
+```
+
+Komponenten `ArticleLayout` utnytter dette, men legger til en ekstra wrapper, 
+slik at man eksempelvis kan ta imot "FrontMatter", slik som _tittel_ og _dato_:
+
+```jsx
+    import style from './ArticleLayout.module.css';
+
+    export const ArticleLayout = ({ title, date }) => ({ children }) =>
+        <article className={style.article}>
+            <div className={style.title}>{title}</div>
+            <div className={style.date}>{date}</div>
+            <div className={style.content}>{children}</div>
+        </article>
+
+```
+
+Denne teknikken fungerer godt dersom man ønsker å overskrive/styre layout for _kun en side_.
+Globalt layout kan også settes på følgende vis:
+
+## Globalt layout
+
+Som normalt i Next.js, er det mulig å lage en global wrapper for alle undersider gjennom 
+`_app.js`. Denne kan eksempelvis se slik ut:
+
+```jsx 
+    import React from 'react';
+    import { GlobalLayout } from "../components/Layout";
+
+    export default function App({ Component, pageProps }) {
+        return (
+            <GlobalLayout>
+                <Component {...pageProps} />
+            </GlobalLayout>
+        );
+    }
+```
+
+## Overstyre global default-visning av Markdown
+
+Man kan overstyre hvordan Markdown-elementer vises globalt med følgende tillegg i `_app.js`:
+
+```jsx 
+    import React from 'react';
+    import { MDXProvider } from "@mdx-js/react";
+
+
+    const componentReplacements = {
+        h1: (props) => <h1 className="hello" {...props}>{props.children}</h1>,
+    }
+
+    export default function App({ Component, pageProps }) {
+        return (
+            <MDXProvider components={componentReplacements}>
+                <Component {...pageProps} />
+            </MDXProvider >
+        );
+    }
+```
+
+## Overstyre local default-visning av Markdown
+
+`<MDXProvider>`-en som ligger nærmest i "komponenttreet" vil bli benyttet når Markdown-visning av komponenter overskrives.
+Det betyr at man kan definere en `<MDXProvider>` på globalt nivå, og deretter overstyre
+enkeltkomponenter lengre "ned" i hierarkiet ved å wrappe dem i en ny `<MDXProvider>`.
+
+### Eksempel
+
+Eksempelvis kan man importere et MDX-fragment, og overstyre visningen for denne:
+
+```jsx
+
+    import About from "./../fragments/About.mdx"
+    import { MDXProvider } from "@mdx-js/react";
+
+    <MDXProvider components={{
+            h3: (props) => <h1 style={{color: "red"}} {...props}>{props.children}</h1>,
+        }}>
+        <About />
+    </MDXProvider >
+    
+```
+
+### Output
+
+import About from "./../../fragments/About.mdx"
+import { MDXProvider } from "@mdx-js/react";
+
+<MDXProvider components={{
+        h3: (props) => <h1 style={{color: "red"}} {...props}>{props.children}</h1>,
+    }}>
+    <About />
+</MDXProvider >

@@ -1,0 +1,32 @@
+
+
+
+## Komponere sider med MDX-fragmenter
+
+Alle MDX-filer kan importeres og behandles som ordinære React-komponenter: både i 
+JSX, men også i andre MDX-filer.
+
+Dette tillater oss å stykkvis forfatte informasjon i flere MDX-filer, for deretter å 
+sette dem sammen til et helhetlig dokument. 
+
+## Eksempel
+
+Eksempelet under importerer to MDX-filer og viser dem i denne MDX-filen:
+
+```jsx
+
+    import About from "./../fragments/About.mdx"
+    import Careers from "./../fragments/Careers.mdx"
+
+    <About/>
+    <Careers/>
+```
+
+
+## Output:
+
+import About from "./../../fragments/About.mdx"
+import Careers from "./../../fragments/Careers.mdx"
+
+<About/>
+<Careers/>

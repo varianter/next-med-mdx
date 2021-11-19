@@ -1,0 +1,23 @@
+MDX-filer kan importeres som React-komponenter og brukes i kombinasjon med "vanlig"
+Next.js-oppsett. Det gir full fleksibilitet i bruk av Next-features, slik som SSG og SSR.
+
+### Eksempel
+
+Denne siden er bygget opp slik: 
+
+```jsx
+
+    // pages/examples/regular-page.js
+
+    import MdxAsComponents from '../../fragments/mdx-as-components.mdx';
+
+    export default function RegularPost() {
+        return (
+            <>
+                <h1>Pages + MDX</h1>
+                <MdxAsComponents />
+            </>
+        );
+    }
+
+```

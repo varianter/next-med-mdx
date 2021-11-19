@@ -1,27 +1,19 @@
-# Example app with MDX
+# Next.js + MDX sample
 
-This example shows using [MDX](https://github.com/mdx-js/mdx) as top level pages for your next.js app.
+Dette repositoriet utforsker kombinasjonen av Next.js og [MDX](https://github.com/mdx-js/mdx) for skriving av interaktiv dokumentasjon.
 
-## Preview
+Koden er basert på [denne templaten](https://github.com/vercel/next.js/tree/canary/examples/with-mdx), og opprettet med følgende kommando:
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+````bash
+    yarn create next-app --example with-mdx with-mdx-app
+````
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-mdx)
+## Utforsk og kjør
 
-## Deploy your own
+Kjør koden med `yarn dev` (åpnes på `localhost:3000`), og ta gjerne en titt på [index.mdx](/pages/index.mdx) - entry-punktet for siden som åpnes.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Sentrale teknologier:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mdx&project-name=with-mdx&repository-name=with-mdx)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-mdx with-mdx-app
-# or
-yarn create next-app --example with-mdx with-mdx-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+    "@mdx-js/loader"
+    "@mdx-js/react"
+    "@next/mdx"

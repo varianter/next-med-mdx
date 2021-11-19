@@ -1,0 +1,86 @@
+# Lenker i MDX:
+
+## Standard Next-lenke
+
+Den standard `<Link>`-komponenten til Next.js kan brukes i MDX:
+
+```jsx
+    import Link from 'next/link'
+
+    <Link href={`/`}>
+        <a>I'm a Link in MDX! I don't work without JS</a>
+    </Link>
+```
+
+Dersom man deaktiverer Javascript, ser man derimot at lenken slutter å fungere.
+Dette kan tyde på at lenken ikke blir riktig prosessert under statisk sidegenerering (SSG) under bygg.
+
+**Output**
+
+import Link from 'next/link'
+
+<Link href={`/`}>
+    <a>I'm a Link in MDX! I'm missing a href and don't work without JS</a>
+</Link>
+
+
+
+## Lenke med standard `<a>`-tag
+
+Du kan alltids benytte en standard `<a>`-tag med javascript deaktivert:
+
+```jsx
+    <a href="/">
+        I'm a regular link! I force a page reload.
+    </a>
+```
+
+Men denne vil naturlig nok heller ikke inngå i SSG, og gir en full page-reload.
+
+**Output**
+
+<a href="/">
+    I'm a regular link! I force a page reload.
+</a>
+
+
+## Lenke i egen React-komponent.
+
+Det viser seg at `next/link` blir prosessert riktig under bygg dersom den er inkludert gjennom en "ekstern" React-komponent.
+Vi får derfor godene fra SSG ved å benytte en enkel "Link"-wrapper som vist under. PS: SSG for React-komponenter i MDX-filer ser ut til å skje
+ved bygging (bruk `yarn build && yarn start` i stedet for `yarn dev` ved testing).
+
+```jsx
+    // i MdxLink.js
+
+    import Link from 'next/link';
+
+    export const MdxLink = ({ children, to }) =>
+        <Link href={to}>
+            <a>{children}</a>
+        </Link>
+```
+
+```jsx
+
+    // I en mdx-fil
+
+    import {MdxLink} from '../../components/mdx-link/MdxLink'
+
+    <MdxLink to="/">
+        I'm a Link in a React component! I work without JS.
+    </MdxLink>
+```
+
+**Output**
+
+import {MdxLink} from '../../components/mdx-link/MdxLink'
+
+<MdxLink to="/">
+    I'm a Link in a custom React component! I work with SSG and without JS.
+</MdxLink>
+
+
+
+
+

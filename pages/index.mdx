@@ -1,7 +1,67 @@
+import {MdxLink} from '../components/mdx-link/MdxLink'
 import Button from '../components/button.js'
 
-# MDX + Next.js
+# MDX + Next.js = ❤️ ?
 
-Look, a button! 👇
+Dette repository-et demonstrerer ulike teknikker for hvordan man kan kombinere Next.js med MDX.
 
-<Button>👋 Hello</Button>
+## MDX?
+
+MDX er Markdown + Javascript. MDX gjør at man kan skrive Markdown, men samtidig
+dra inn helt vanlige React-komponenter ved behov:
+
+```jsx
+    import Button from '../components/button.js'
+
+    <Button>👋 En knapp!</Button>
+```
+
+**Output**
+
+<Button>👋 En knapp!</Button>
+
+
+## Eksempler
+
+<MdxLink to={'/examples/using-links'}>
+    <Button>Lenke mellom sider</Button>
+</MdxLink>
+<br/>
+
+<MdxLink to={'/examples/using-layout'}>
+    <Button>Stilsetting og layouts</Button>
+</MdxLink>
+<br/>
+
+<MdxLink to={'/examples/regular-page'}>
+    <Button>Bruke vanlige Next.js sider</Button>
+</MdxLink>
+<br/>
+
+<MdxLink to={'/examples/using-fragments'}>
+    <Button>Kombinere MDX-filer til én</Button>
+</MdxLink>
+<br/>
+
+## Ressurser
+
+MDX og Next kan kombineres på flere ulike måter. Følgende artikler diskuterer noen av alternativene på et overordnet nivå:
+
+
+* [Josh W. Comeau - How I Built My Blog](https://www.joshwcomeau.com/blog/how-i-built-my-blog/)
+* [Comparison of MDX integration strategies with Next.js](https://dev.to/tylerlwsmith/quick-comparison-of-mdx-integration-strategies-with-next-js-1kcm)
+* [Markdown/MDX with Next.js](https://nextjs.org/blog/markdown)
+
+Det er veldig lite konkret dokumentasjon på bruken av `next/mdx`-pakken som benyttes i dette repoet, men følgende ressurser har vært nyttig:
+
+* [mdx-js/loader documentation](https://mdxjs.com/docs/getting-started/)
+* [mdx-js/react documentation](https://mdxjs.com/packages/react/)
+* [with-mdx template on Github](https://github.com/vercel/next.js/tree/canary/examples/with-mdx)
+* [Working with MDX Custom Elements and Shortcodes (for Gatsby, men viser noen gode teknikker)](https://css-tricks.com/working-with-mdx-custom-elements-and-shortcodes/)
+
+En vesentlig mangel med løsningen som er vist her, er at den ikke støtter **TypeScript**. 
+Dét er til gjengjeld et av hovedforbedringene i versjon 2 av `mdx-js/loader` og `mdx-js/react` som for øyeblikket er i RC2.0.
+Et kort forsøk be gjort på oppgradering, men ble avsluttet tidlig etter å ha støtt på enkelte bugs.
+
+* [MDX-js Version 2](https://mdxjs.com/blog/v2/)
+* [Bug fra testing](https://www.giters.com/mdx-js/mdx/issues/1617)
